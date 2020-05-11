@@ -1,0 +1,23 @@
+name: "build-test"
+on: # rebuild any PRs and main branch changes
+  pull_request:
+  push:
+    branches:
+      - master
+
+jobs:
+  test: 
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - run: |
+        npm install
+        npm run all
+    - uses: nelsonsilva/setup-k3s@v0.1.0
+    - uses: ./
+      with:
+        repo: https://chartmuseum.platform.dev.nuxeo.com
+        chart: nuxeo
+    - name: kubectl
+      run: |
+        kubectl get pods

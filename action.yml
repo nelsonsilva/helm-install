@@ -1,0 +1,21 @@
+name: 'Helm install'
+description: 'Install a Helm chart'
+author: Nelson Silva
+inputs:
+  repo:
+    description: 'Repo'
+    required: true
+  chart:
+    description: 'Chart to install'
+    required: true
+  args:
+    description: 'Arguments'
+    default: '--atomic --timeout 15m'
+    required: false
+  values:
+    description: 'Values (YAML)'
+    required: false
+runs:
+  using: 'node12'
+  main: 'dist/index.js'
+  post: 'dist/index.js'
